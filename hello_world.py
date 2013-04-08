@@ -7,7 +7,7 @@ string = 'Hello World!'
 N = len(string)
 
 def eval_func(chromosome):
-	score = 100000
+	score = 10000
 
 	for i in range(len(chromosome)):
 		score-= abs(chromosome[i]-ord(string[i]))
