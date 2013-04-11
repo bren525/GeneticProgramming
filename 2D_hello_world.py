@@ -2,24 +2,25 @@ from pyevolve import G1DList
 from pyevolve import GSimpleGA
 from pyevolve import G2DList
 from pyevolve import Mutators	
-from pyevolve import Initializators	
+from pyevolve import Initializators
+from pyevolve import Consts
 string = 'Hello World!'
 N = len(string)
 
 def eval_func(chromosome):
-	score = 100000
+	score = 0
 
 	for i in range(len(chromosome)):
 		score-= abs(chromosome[i]-ord(string[i]))
 	return score
 
 def eval_func2(chromosome):
-	score = 100000
+	score = 0
 
 	for i in range(chromosome.getWidth()):
-		score-= abs(chromosome[0][i]-ord(string[i]))
+		score+= abs(chromosome[0][i]-ord(string[i]))
 	for i in range(chromosome.getWidth()):
-		score -= abs(chromosome[0][i]-chromosome[1][chromosome.getWidth()-1-i])
+		score += abs(chromosome[0][i]-chromosome[1][chromosome.getWidth()-1-i])
 	return score
 
 genome1 = G2DList.G2DList(2,N)
@@ -28,7 +29,7 @@ genome1.evaluator.set(eval_func2)
 genome1.mutator.set(Mutators.G2DListMutatorIntegerGaussian)
 
 ga = GSimpleGA.GSimpleGA(genome1)
-
+ga.setMinimax(Consts.minimaxType["minimize"])
 ga.setGenerations(2000)
 ga.evolve(freq_stats=100)
 print ga.bestIndividual()

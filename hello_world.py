@@ -14,7 +14,7 @@ def eval_func(chromosome):
 		score-= abs(chromosome[i]-ord(string[i]))
 	return score
 
-
+genome = G1DList.G1DList(N)
 genome.setParams(rangemin = 0, rangemax = 256)
 genome.evaluator.set(eval_func)
 genome.mutator.set(Mutators.G1DListMutatorIntegerRange)
