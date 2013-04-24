@@ -1,7 +1,6 @@
 
 import scipy
 import random
-import math
 
 def fit_func(genr,geny):
 	# r represents predator and y represents prey
@@ -67,5 +66,5 @@ def predforce(r,args**):
 		F=Fmax*((py+c18*vy-pr-vr)+adjust)
 	return (rforce)
 
-def distance(pr,py):
-	return(math.sqrt((pr[0]-py[0])**2-(pr[1]-py[1]**2)))
+def distance():
+	return(sqrt())
