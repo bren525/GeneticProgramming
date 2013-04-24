@@ -27,15 +27,28 @@ def testrun(r,y):
 	Fmaxr = 15*(10**-3)
 	Fmaxy = 10*(10**-3)
 	c = 1*(10**-3)
-	init_params = [50,0,0,0,0,0,0,0]
+	initParams = [50,0,0,0,0,0,0,0]
 	
 	
 
 	return(elaspedtime,closestpt)
 
 
-def predpreyDE():
+def predPreyDE(t,params):
+	pr = params[0,1]
+	py = params[2,3]
+	vr = params[4,5]
+	vy = params[6,7]
 
+	Fr = predForce(t,FrMax,pr,vr,py,vy)
+	#FrRand = 	###################
+	FrDrag = -vr*c
+	FrTotal = Fr+FrDrag#+FrRand
+
+	Fy = predForce(t,FyMax,pr,vr,py,vy)
+	#FyRand = 	###################
+	FyDrag = -vy*c
+	FyTotal = Fy+FyDrag#+FyRand
 
 	return(paramchange)
 
@@ -49,22 +62,22 @@ def predforce(r,args**):
 	dist=distance(pr,py)
 	if dist>70:
 		adjust=c1*((vy-vr)-vr/norm(vr)/c2)
-		F=Fmax*((py+c3*vy-pr-vr)+adjust)
+		rforce=Fmax*((py+c3*vy-pr-vr)+adjust)
 	elif dist>45:
 		adjust=c4*((vy-vr)-vr/norm(vr)/c5)
-		F=Fmax*((py+c6*vy-pr-vr)+adjust)
+		rforce=Fmax*((py+c6*vy-pr-vr)+adjust)
 	elif dist>28:
 		adjust=c7*((vy-vr)-vr/norm(vr)/c8)
-		F=Fmax*((py+c9*vy-pr-vr)+adjust)
+		rforce=Fmax*((py+c9*vy-pr-vr)+adjust)
 	elif dist>13:
 		adjust=c10*((vy-vr)-vr/norm(vr)/c11)
-		F=Fmax*((py+c12*vy-pr-vr)+adjust)
+		rforce=Fmax*((py+c12*vy-pr-vr)+adjust)
 	elif dist>5:
 		adjust=c13*((vy-vr)-vr/norm(vr)/c14)
-		F=Fmax*((py+c15*vy-pr-vr)+adjust)
+		rforce=Fmax*((py+c15*vy-pr-vr)+adjust)
 	else:
 		adjust=c16*((vy-vr)-vr/norm(vr)/c17)
-		F=Fmax*((py+c18*vy-pr-vr)+adjust)
+		rforce=Fmax*((py+c18*vy-pr-vr)+adjust)
 	return (rforce)
 
 def distance(pr,py):
