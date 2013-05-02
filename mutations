@@ -27,4 +27,4 @@ def FlipCoin(p):
 
 
 if __name__=='__main__':
-	print(mutations([1,3,5,2],pmut = 0.5, rangeMin = 1, rangeMax = 7))
+	print(mutations([1,3,5,2,80,43,57,62],pmut = 0.2, rangeMin = 1, rangeMax = 100))
