@@ -6,13 +6,14 @@ def crossOver(mom,dad,count):
 	cut = random.randint(1, len(mom)-1)
 	
 	if count >= 1:
-		sis=mom.clone()
+		sis=mom[:]
 		sis[cut:]=dad[cut:]
+
 	if count == 2:
-		bro=dad.clone()
-		bro[cut:]=dad[cut:]
+		bro=dad[:]
+		bro[cut:]=mom[cut:]
 	
-return bro,sis
+	return sis,bro
 
 if __name__ == '__main__':
 	print(crossOver([1,3,5,8],[2,4,7,9],2))
