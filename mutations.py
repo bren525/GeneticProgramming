@@ -1,21 +1,21 @@
 import random
 
-def mutations(genome, **args):
+def mutations(genome, mutRate, rangeMin, rangeMax):
 	""" mutator for list of integers that introduces new random #"""
 	
 	listSize = len(genome)
-	mutations = args["mutRate"] * (listSize)
+	mutations = mutRate * (listSize)
 
 	if mutations < 1:
 		mutations = 0
 		for it in xrange(listSize):
-			if FlipCoin(args["mutRate"]):
-				genome[it] = random.randint(args["rangeMin"],args["rangeMax"])
+			if FlipCoin(mutRate):
+				genome[it] = random.randint(rangeMin,rangeMax)
             	mutations += 1
 	else: 
 		for it in xrange(int(round(mutations))):
 			whichGene = random.randint(0, listSize-1)
-			genome[whichGene] = random.randint(args["rangeMin"],args["rangeMax"])
+			genome[whichGene] = random.randint(rangeMin,rangeMax)
 	return mutations,genome
 			
 
@@ -27,4 +27,4 @@ def FlipCoin(p):
 
 
 if __name__=='__main__':
-	print(mutations([1,3,5,2,80,43,57,62],mutRate = 0.2, rangeMin = 1, rangeMax = 100))
+	print(mutations([1,3,5,2,80,43,57,62],0.2,1,100))
