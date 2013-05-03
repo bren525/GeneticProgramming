@@ -1,6 +1,6 @@
 import random
 
-def mutations(genome, mutRate, rangeMin, rangeMax):
+def mutate(genome, mutRate, rangeMin=0, rangeMax=100):
 	""" mutator for list of integers that introduces new random #"""
 	
 	listSize = len(genome)
