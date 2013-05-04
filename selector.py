@@ -73,6 +73,6 @@ def nextypop(ypop,mutRate):
 
 
 if __name__=='__main__':
-	print(nextrpop())
-	print(nextypop())
+	print(nextrpop([[1,2,3],[4,5,6],[7,8,9],[10,11,12]],0.2))
+	print(nextypop([[1,2,3],[4,5,6],[7,8,9],[10,11,12]],0.2))
 
