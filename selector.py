@@ -71,3 +71,8 @@ def nextypop(ypop,mutRate):
 			nextpop.extend(mutate(crossOver(mom,dad,1),mutRate))
 	return nextpop
 
+
+if __name__=='__main__':
+	print(nextrpop())
+	print(nextypop())
+
