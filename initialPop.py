@@ -1,4 +1,5 @@
 import random
+from genome import Gen 
 
 def initialPop(popSize,rangeMin,rangeMax,genLength):
 	"""Creates the initial population for evolving"""
@@ -10,7 +11,7 @@ def initialPop(popSize,rangeMin,rangeMax,genLength):
 		for j in range(genLength):
 			param=random.randint(rangeMin,rangeMax)
 			genome.append(param)
-		pop.append(genome)
+		pop.append(Gen(genome))
 				
 	return pop
 

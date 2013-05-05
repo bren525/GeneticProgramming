@@ -1,8 +1,7 @@
 import random
 
-def mutate(genome, mutRate, rangeMin=0, rangeMax=100):
+def mutate(genome, mutRate, rangeMin=0, rangeMax=1000):
 	""" mutator for list of integers that introduces new random #"""
-	
 	listSize = len(genome)
 	mutations = mutRate * (listSize)
 
@@ -16,7 +15,7 @@ def mutate(genome, mutRate, rangeMin=0, rangeMax=100):
 		for it in xrange(int(round(mutations))):
 			whichGene = random.randint(0, listSize-1)
 			genome[whichGene] = random.randint(rangeMin,rangeMax)
-	return mutations,genome
+	return genome
 			
 
 def FlipCoin(p):

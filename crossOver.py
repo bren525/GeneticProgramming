@@ -1,4 +1,5 @@
 import random
+from genome import Gen
 
 def crossOver(mom,dad,count=2):
 	"""Takes in two genomes swaps their elements and produces two babies"""
@@ -8,11 +9,16 @@ def crossOver(mom,dad,count=2):
 	if count <= 1:
 		sis=mom[:]
 		sis[cut:]=dad[cut:]
+		sis = Gen(sis)
 		return sis
 
 	if count == 2:
+		sis=mom[:]
+		sis[cut:]=dad[cut:]
+		sis = Gen(sis)
 		bro=dad[:]
 		bro[cut:]=mom[cut:]
+		bro = Gen(bro)
 		return sis,bro
 	
 	

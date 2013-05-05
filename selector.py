@@ -2,72 +2,48 @@ from mutations import mutate
 from crossOver import crossOver
 import random
 from operator import attrgetter
-from genome import gen
+from genome import Gen
 
 '''Our selector uses a roulette wheel selection method,
 '''
 
-def nextrpop(rpop,mutRate):
-	size = len(rpop)
-	total = sum(rpop)
-	for rgen in rpop:
-		rgen.normScore = 1 - (float(rgen.score)/float(total)) #set normalized scores (inverted for predator)
+def nextpop(pop,mutRate,maxmin = 'max'):
+	size = len(pop)
+	total = sum(pop)
+	for gen in pop:
+		if maxmin == 'max':
+			gen.normScore = (float(gen.rawScore)/float(total)) #set normalized scores (inverted for predator)
+		else:
+			gen.normScore = 1 - (float(gen.rawScore)/float(total)) #set normalized scores (inverted for predator)
 		
-	rpop.sort(key = attrgetter('normScore')) #sort based on score
+	pop.sort(key = attrgetter('normScore')) #sort based on score
 	accumulator = 0
 	
-	for rgen in rpop:
-		accumulator += rgen.normScore
-		rgen.accumulatedScore = accumulator
+	for gen in pop:
+		accumulator += gen.normScore
+		gen.accumulatedScore = accumulator
 	
 	nextpop = []
 	for i in range(0,size,2):
-		pick = random.rand()
-		for rgen in rpop:
-			if rgen.accumulatedScore > pick:
-				mom = rgen
-				break;
-		pick = random.rand()
-		for rgen in rpop:
-			if rgen.accumulatedScore > pick:
-				dad = rgen
-				break;
+		pick = random.random()
+		for gen in pop:
+			if gen.accumulatedScore > pick:
+				mom = gen
+				break
+		pick = random.random()
+		for gen in pop:
+			if gen.accumulatedScore > pick:
+				dad = gen
+				break
 		if (size - i) > 1:
-			sis,bro = mutate(crossOver(mom,dad)
-			nextpop.extend([mutate(sis,mutRate),mutate(bro,mutRate)])
+			sis,bro = crossOver(mom,dad)
+			nextpop.append(mutate(sis,mutRate))
+			nextpop.append(mutate(bro,mutRate))
 		else:
-			nextpop.extend(mutate(crossOver(mom,dad,1),mutRate))
+			nextpop.append(mutate(crossOver(mom,dad,1),mutRate))
 	return nextpop
 		
-def nextypop(ypop,mutRate):
-	size = len(ypop)
-	total = sum(ypop)
-	for ygen in ypop:
-		ygen.normScore = float(ygen.score)/float(total)
-		
-	ypop.sort(key = attrgetter('normScore'))
-	accumulator = 0
-	
-	for ygen in ypop:
-		accumulator += ygen.normScore
-		ygen.accumulatedScore = accumulator
-	
-	nextpop = []
-	for i in range(0,size,2):
-		pick = random.rand()
-		for ygen in ypop:
-			if ygen.accumulatedScore > pick:
-				mom = ygen
-				break;
-		pick = random.rand()
-		for ygen in ypop:
-			if ygen.accumulatedScore > pick:
-				dad = ygen
-				break;
-		if (size - i) > 1:
-			sis,bro = mutate(crossOver(mom,dad)
-			nextpop.extend([mutate(sis,mutRate),mutate(bro,mutRate)])
-		else:
-			nextpop.extend(mutate(crossOver(mom,dad,1),mutRate))
-	return nextpop
 
+
+if __name__ == "__main__":
+	nothing = 'nothing'
