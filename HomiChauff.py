@@ -3,24 +3,26 @@ import numpy
 import random
 import math
 
-def fit_func(genr,geny):
+def fitFunc(rpop,ypop):
 	# r represents predator and y represents prey
 	# genpr and genpy are lists of all predator and prey genomes
 	# will return lists (scorepr and scorepy) of all final scores 
 
-	rscores=[0]*gensize
-	yscores=[0]*gensize
+	for r in rpop:
+		for y in ypop:
+			#[elapsedtime,closestpt]=testrun(r,y)
+			#score=elapsedtime+1000*closestpt
+			score = exampletest(r,y)
+			r.rawScore+=score
+			y.rawScore+=score
 
-	for r in genr:
-		for y in geny:
-			[elapsedtime,closestpt]=testrun(r,y)
-			score=elapsedtime+1000*closestpt
-			rscores[genr.index(r)]+=score
-			yscores[geny.index(y)]+=score
-	
-	return(rscores,yscores)
+def exampletest(r,y):
+	score = 0
+	for i in range(len(r)):
+		score += abs(r[i]-y[i])
+	return score
 
-
+'''
 def testrun(r,y):
 	mr = 18*(10**-3)
 	my = 10*(10**-3)
@@ -126,6 +128,6 @@ def getRotVec(theta, v):
 	A = numpy.matrix([[math.cos(theta),-math.sin(theta)],[math.sin(theta),math.cos(theta)]])
 	n = numpy.array(A*v.T)
 	return numpy.matrix([n[0][0],n[1][0]])
-	
+'''	
 if __name__ == "__main__":
 	testrun([4,12,6,12,10,3.5,14,9,2,19,9,2,25,8,2,14,7,2.6],'hello')
