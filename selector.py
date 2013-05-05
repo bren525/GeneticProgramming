@@ -45,5 +45,13 @@ def nextpop(pop,mutRate,maxmin = 'max'):
 		
 
 
+<<<<<<< HEAD
 if __name__ == "__main__":
 	nothing = 'nothing'
+=======
+
+if __name__=='__main__':
+	print(nextrpop([[1,2,3],[4,5,6],[7,8,9],[10,11,12]],0.2))
+	print(nextypop([[1,2,3],[4,5,6],[7,8,9],[10,11,12]],0.2))
+
+>>>>>>> 497791289d0fb2d07b9eb7f12ee5435877329f25
