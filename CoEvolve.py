@@ -2,7 +2,7 @@ from selector import nextpop
 from initialPop import initialPop
 from HomiChauff import fitFunc
 from operator import attrgetter
-from TestFitnessFunctions import testFitFunc
+from TestFitnessFunctions import testFitFunc2
 
 def averageScore(pop):
 	total = sum(pop)
@@ -15,22 +15,21 @@ def bestScore(pop,minmax='max'):
 		return sorted(pop,key=attrgetter('rawScore'))[0]
 
 lower = 0
-upper = 9
-rpop = initialPop(20,lower,upper,5)
-ypop = initialPop(20,lower,upper,5)
+upper = 100
+rpop = initialPop(200,lower,upper,5)
+ypop = initialPop(200,lower,upper,5)
 print('r',averageScore(rpop),bestScore(rpop))
 print('y',averageScore(ypop),bestScore(ypop))
 
-for i in range(500):
+for i in range(5000):
 	
-	testFitFunc(rpop,ypop)
-	print('r',rpop)
-	#if i % 100 == 0:
-		#print(str(i),'r',averageScore(rpop),bestScore(rpop))
-		#print(str(i),'y',averageScore(ypop),bestScore(ypop))
-	rpop = nextpop(rpop,.03,lower,upper)
-	ypop = nextpop(ypop,.03,lower,upper)		
+	testFitFunc2(rpop,ypop)
+	if i % 100 == 0:
+		print(str(i),'r',averageScore(rpop),bestScore(rpop))
+		print(str(i),'y',averageScore(ypop),bestScore(ypop))
+	rpop = nextpop(rpop,.05,lower,upper)
+	ypop = nextpop(ypop,.05,lower,upper)		
 
-testFitFunc(rpop,ypop)
+testFitFunc2(rpop,ypop)
 print('r',averageScore(rpop),bestScore(rpop))
 print('y',averageScore(ypop),bestScore(ypop))
