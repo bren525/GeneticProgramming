@@ -10,19 +10,12 @@ def fitFunc(rpop,ypop):
 
 	for r in rpop:
 		for y in ypop:
-			#[elapsedtime,closestpt]=testrun(r,y)
-			#score=elapsedtime+1000*closestpt
-			score = exampletest(r,y)
+			[elapsedtime,closestpt]=testrun(r,y)
+			score=elapsedtime+1000*closestpt
 			r.rawScore+=score
 			y.rawScore+=score
 
-def exampletest(r,y):
-	score = 0
-	for i in range(len(r)):
-		score += abs(r[i]-y[i])
-	return score
 
-'''
 def testrun(r,y):
 	mr = 18*(10**-3)
 	my = 10*(10**-3)
@@ -128,6 +121,6 @@ def getRotVec(theta, v):
 	A = numpy.matrix([[math.cos(theta),-math.sin(theta)],[math.sin(theta),math.cos(theta)]])
 	n = numpy.array(A*v.T)
 	return numpy.matrix([n[0][0],n[1][0]])
-'''	
+
 if __name__ == "__main__":
 	testrun([4,12,6,12,10,3.5,14,9,2,19,9,2,25,8,2,14,7,2.6],'hello')

@@ -8,8 +8,10 @@ class Gen():
 
 	def __radd__(self, other):
 		return other + self.rawScore
+		
 	def __repr__(self):
-		return str(self.genomeList) + str(self.rawScore)
+		return str(self.genomeList) +' '+ str(self.rawScore)
+
 	def __eq__(self, other):
 		""" Compares one chromosome with another """
 		return self.genomeList == other.genomeList

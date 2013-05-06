@@ -7,11 +7,13 @@ from genome import Gen
 '''Our selector uses a roulette wheel selection method,
 '''
 
-def nextpop(pop,mutRate,maxmin = 'max'):
+def nextpop(pop,mutRate,lower,upper,maxmin = 'max'):
 	size = len(pop)
 	total = sum(pop)
 	for gen in pop:
-		if maxmin == 'max':
+		if total == 0:
+			gen.normScore = 1
+		elif maxmin == 'max':
 			gen.normScore = (float(gen.rawScore)/float(total)) #set normalized scores (inverted for predator)
 		else:
 			gen.normScore = 1 - (float(gen.rawScore)/float(total)) #set normalized scores (inverted for predator)
@@ -35,19 +37,14 @@ def nextpop(pop,mutRate,maxmin = 'max'):
 			if gen.accumulatedScore > pick:
 				dad = gen
 				break
+
 		if (size - i) > 1:
 			sis,bro = crossOver(mom,dad)
-			nextpop.append(mutate(sis,mutRate))
-			nextpop.append(mutate(bro,mutRate))
+			nextpop.append(mutate(sis,mutRate,lower,upper))
+			nextpop.append(mutate(bro,mutRate,lower,upper))
 		else:
-			nextpop.append(mutate(crossOver(mom,dad,1),mutRate))
+			nextpop.append(mutate(crossOver(mom,dad,1),mutRate,lower,upper))
 	return nextpop
-		
 
-
-
-if __name__=='__main__':
-	print(nextpop([[1,2,3],[4,5,6],[7,8,9],[10,11,12]],0.2))
-	print(nextpop([[1,2,3],[4,5,6],[7,8,9],[10,11,12]],0.2))
 
 
