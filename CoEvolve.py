@@ -20,17 +20,30 @@ upper = math.pi
 rpop = initialPop(20,lower,upper,128)
 ypop = initialPop(20,lower,upper,128)
 
-'''for i in range(1):
-	
+log = open("CoEvolveLog.txt",'a')
+log.write('Test 3\n')
+
+for i in range(1000):
 	fitFunc(rpop,ypop)
-	if i % 100 == 0:
-		print(str(i),'r',averageScore(rpop),bestScore(rpop))
-		print(str(i),'y',averageScore(ypop),bestScore(ypop))
+	log.write(str('Generation',i)+'\n')
+	print('Generation',i)
+	log.write(str('r',averageScore(rpop),bestScore(rpop))+'\n')
+	log.write(str('y',averageScore(ypop),bestScore(ypop))+'\n')
+	for r in rpop:
+		log.write(str('r',r)+'\n')
+	for y in ypop:
+		log.write(str('y',y)+'\n')
+		
 	rpop = nextpop(rpop,.05,lower,upper,'min')
-	ypop = nextpop(ypop,.05,lower,upper,'max')'''
+	ypop = nextpop(ypop,.05,lower,upper,'max')
 
 fitFunc(rpop,ypop)
-print('r',averageScore(rpop),bestScore(rpop))
-print('y',averageScore(ypop),bestScore(ypop))
-testrun(bestScore(rpop),bestScore(ypop),True)
+log.write(str('Generation',1000)+'\n')
+log.write(str('r',averageScore(rpop),bestScore(rpop))+'\n')
+log.write(str('y',averageScore(ypop),bestScore(ypop))+'\n')
+for r in rpop:
+	log.write(str('r',r)+'\n')
+for y in ypop:
+	log.write(str('y',y)+'\n')
+testrun(bestScore(rpop,'min'),bestScore(ypop,'min'),True)
 
