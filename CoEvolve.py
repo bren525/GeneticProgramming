@@ -16,12 +16,12 @@ def bestScore(pop,minmax='max'):
 
 lower = 0
 upper = 100
-rpop = initialPop(200,lower,upper,5)
-ypop = initialPop(200,lower,upper,5)
+rpop = initialPop(50,lower,upper,5)
+ypop = initialPop(50,lower,upper,5)
 print('r',averageScore(rpop),bestScore(rpop))
 print('y',averageScore(ypop),bestScore(ypop))
 
-for i in range(5000):
+for i in range(500):
 	
 	testFitFunc2(rpop,ypop)
 	if i % 100 == 0:

@@ -1,11 +1,12 @@
+from numpy import linspace
 from scipy.integrate import odeint
-import numpy
+from pylab import plot, axis, show
 import random
 import math
 
 def fitFunc(rpop,ypop):
 	# r represents predator and y represents prey
-	# genpr and genpy are lists of all predator and prey genomes
+	# rpop and ypop are lists of all predator and prey genomes
 	# will return lists (scorepr and scorepy) of all final scores 
 
 	for r in rpop:
@@ -15,40 +16,88 @@ def fitFunc(rpop,ypop):
 			r.rawScore+=score
 			y.rawScore+=score
 
+def distance(pr,py):
+	return(math.sqrt((pr[0]-py[0])**2+(pr[1]-py[1])**2))
 
 def testrun(r,y):
-	mr = 18*(10**-3)
-	my = 10*(10**-3)
-	Fmaxr = 15*(10**-3)
-	Fmaxy = 10*(10**-3)
-	c = 1*(10**-3)
+	mr = .018
+	my = .010
+	Frmax = .015
+	Fymax = .010
+	c = .001
 	initParams = [50.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
 	def predPreyDE(params,t):
-		print(params)
-		pr = numpy.matrix([params[0],params[1]])
-		py = numpy.matrix([params[2],params[3]])
-		vr = numpy.matrix([params[4],params[5]])
-		vy = numpy.matrix([params[6],params[7]])
+		pr = [params[0],params[1]]
+		py = [params[2],params[3]]
+		vr = [params[4],params[5]]
+		vy = [params[6],params[7]]
 		
-		Fr = predForce(r,t,Fmaxr,pr,vr,py,vy)
-		FrRand = numpy.matrix([(random.random()-.5)*(Fmaxr/3),(random.random()-.5)*(Fmaxr/3)])
-		FrDrag = -vr*c
-		FrTotal = Fr+FrDrag+FrRand
+		if distance(pr,py)<3:
+			print('CAUGHT!')
 		
-		Fy = preyForce(y,t,Fmaxy,pr,vr,py,vy)
-		FyRand = numpy.matrix([(random.random()-.5)*(Fmaxy/3),(random.random()-.5)*(Fmaxy/3)])
-		FyDrag = -vy*c
-		FyTotal = Fy+FyDrag+FyRand
+		Fr = predForce(r,t,Frmax,pr,vr,py,vy)
 		
-		paramchange = [params[4],params[5],params[6],params[7],numpy.array(FrTotal)[0][0],numpy.array(FrTotal)[0][1],numpy.array(FyTotal)[0][0],numpy.array(FyTotal)[0][1]]
+		Fy = preyForce(y,t,Fymax,pr,vr,py,vy)
+		
+		print(t,Fr,Fy)
 
-		return(paramchange)
+		return[	params[4],
+				params[5],
+				params[6],
+				params[7],
+				Fr[0]/mr,
+				Fr[1]/mr,
+				Fy[0]/my,
+				Fy[1]/my ]
+		
+	def preyForce(y,t,Fymax,pr,vr,py,vy):
+		yDx = math.tan(t/15.0)
+		yDy = math.cos(t/15.0)
+		
+		mag = math.sqrt(yDx**2.0+yDy**2.0)
+		yFx = yDx*(Frmax**2/mag**2)
+		yFy = yDy*(Frmax**2/mag**2)
+		
+		#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
+		#yFx += (FyRand[0] - vy[0]*c) 
+		#yFy += (FyRand[1] - vy[1]*c)
+		
+		yFx += -vy[0]*c
+		yFy += -vy[1]*c
+		
+		return [yFx,yFy]
+
+	def predForce(r,t,Frmax,pr,vr,py,vy):
+		k = 10.0
+		
+		weightedMag = math.sqrt(((py[0]-pr[0])+k*(vy[0]-vr[0]))**2.0+((py[1]-pr[1])+k*(vy[1]-vr[1]))**2.0)
+		rDx = ((py[0]-pr[0])+k*(vy[0]-vr[0]))/weightedMag
+		rDy = ((py[1]-pr[1])+k*(vy[1]-vr[1]))/weightedMag
+		
+		mag = math.sqrt(rDx**2.0+rDy**2.0)
+		rFx = rDx*(Frmax**2/mag**2)
+		rFy = rDy*(Frmax**2/mag**2)
+		
+		#FrRand = [(random.random()-.5)*(Frmax/3),(random.random()-.5)*(Frmax/3)]
+		#rFx += (FrRand[0] - vr[0]*c) 
+		#rFy += (FrRand[1] - vr[1]*c)
+		
+		rFx += -vr[0]*c
+		rFy += -vr[1]*c
+		
+		return [rFx,rFy]
 	
-	theChase = odeint(predPreyDE,initParams,range(0,250,1))
-	print(theChase)
+	trange = linspace(0,250,250)
+	theChase = odeint(predPreyDE,initParams,trange,rtol=.001)
+	plot(theChase[:,0], theChase[:,1],'r-')
+	plot(theChase[:,2], theChase[:,3],'b-')
+	axis('equal')
+	show()
 	#return(elaspedtime,closestpt)
 
 
+	
+'''
 def preyForce(y,t,FMax,pr,vr,py,vy):
 	FrMax = FMax
 	FyMax = FMax
@@ -121,6 +170,6 @@ def getRotVec(theta, v):
 	A = numpy.matrix([[math.cos(theta),-math.sin(theta)],[math.sin(theta),math.cos(theta)]])
 	n = numpy.array(A*v.T)
 	return numpy.matrix([n[0][0],n[1][0]])
-
+'''
 if __name__ == "__main__":
-	testrun([4,12,6,12,10,3.5,14,9,2,19,9,2,25,8,2,14,7,2.6],'hello')
+	testrun('silly','hello')
