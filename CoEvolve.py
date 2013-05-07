@@ -25,25 +25,26 @@ log.write('Test 3\n')
 
 for i in range(1000):
 	fitFunc(rpop,ypop)
-	log.write(str('Generation',i)+'\n')
+	log.write(str('Generation ')+str(i)+'\n')
 	print('Generation',i)
-	log.write(str('r',averageScore(rpop),bestScore(rpop))+'\n')
-	log.write(str('y',averageScore(ypop),bestScore(ypop))+'\n')
+	log.write(str('r ')+str(averageScore(rpop))+' '+str(bestScore(rpop))+'\n')
+	log.write(str('y ')+str(averageScore(ypop))+' '+str(bestScore(ypop))+'\n')
 	for r in rpop:
-		log.write(str('r',r)+'\n')
+		log.write('r '+str(r)+'\n')
 	for y in ypop:
-		log.write(str('y',y)+'\n')
+		log.write('y '+str(y)+'\n')
 		
 	rpop = nextpop(rpop,.05,lower,upper,'min')
 	ypop = nextpop(ypop,.05,lower,upper,'max')
 
 fitFunc(rpop,ypop)
-log.write(str('Generation',1000)+'\n')
-log.write(str('r',averageScore(rpop),bestScore(rpop))+'\n')
-log.write(str('y',averageScore(ypop),bestScore(ypop))+'\n')
+log.write(str('Generation ')+str(i)+'\n')
+print('Generation',i)
+log.write(str('r ')+str(averageScore(rpop))+' '+str(bestScore(rpop))+'\n')
+log.write(str('y ')+str(averageScore(ypop))+' '+str(bestScore(ypop))+'\n')
 for r in rpop:
-	log.write(str('r',r)+'\n')
+	log.write('r '+str(r)+'\n')
 for y in ypop:
-	log.write(str('y',y)+'\n')
+	log.write('y '+str(y)+'\n')
 testrun(bestScore(rpop,'min'),bestScore(ypop,'min'),True)
 
