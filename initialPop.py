@@ -9,7 +9,7 @@ def initialPop(popSize,rangeMin,rangeMax,genLength):
 	for i in range(popSize):
 		genome=[]
 		for j in range(genLength):
-			param=random.randint(rangeMin,rangeMax)
+			param=random.uniform(rangeMin,rangeMax)
 			genome.append(param)
 		pop.append(Gen(genome))
 				

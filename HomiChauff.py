@@ -3,6 +3,10 @@ from scipy.integrate import odeint
 from pylab import plot, axis, show
 import random
 import math
+from math import sin, cos
+import itertools
+
+
 
 def fitFunc(rpop,ypop):
 	# r represents predator and y represents prey
@@ -35,9 +39,9 @@ def testrun(r,y):
 		if distance(pr,py)<3:
 			print('CAUGHT!')
 		
-		Fr = predForce(r,t,Frmax,pr,vr,py,vy)
+		Fr = predFourierForce(r,t,Frmax,pr,vr,py,vy)
 		
-		Fy = preyForce(y,t,Fymax,pr,vr,py,vy)
+		Fy = preyFourierForce(y,t,Fymax,pr,vr,py,vy)
 		
 		print(t,Fr,Fy)
 
@@ -49,8 +53,54 @@ def testrun(r,y):
 				Fr[1]/mr,
 				Fy[0]/my,
 				Fy[1]/my ]
+				
+	def preyFourierForce(y,t,Fymax,pr,vr,py,vy):
+		x = (pr[0]-py[0])
+		y = (pr[1]-py[1])
+		yvx = vy[0]
+		yvy = vy[1]
+		rvx = vr[0]
+		rvy = vr[1]
 		
-	def preyForce(y,t,Fymax,pr,vr,py,vy):
+		freqPerms = itertools.product([1,2,3,4],repeat = 6)
+		value = 0
+		i = 0
+		for perm in freqPerms:
+			value+= y[i] * (sin(perm[0]*x)) * (sin(perm[1]*y)) * (sin(perm[2]*rvx)) * (sin(perm[3]*rvy)) * (sin(perm[4]*yvx)) * (sin(perm[5]*yvy))
+			i+=1
+			value+= y[i] * (cos(perm[0]*x)) * (cos(perm[1]*y)) * (cos(perm[2]*rvx)) * (cos(perm[3]*rvy)) * (cos(perm[4]*yvx)) * (cos(perm[5]*yvy))
+			i+=1
+		
+		yFx = Fymax*cos(value) -vy[0]*c
+		yFy = Fymax*sin(value) -vy[1]*c
+		
+		return [yFx,yFy]
+		
+		
+		
+	def predFourierForce(r,t,Frmax,pr,vr,py,vy):
+		x = (pr[0]-py[0])
+		y = (pr[1]-py[1])
+		yvx = vy[0]
+		yvy = vy[1]
+		rvx = vr[0]
+		rvy = vr[1]
+		
+		freqPerms = itertools.product([1,2,3,4],repeat = 6)
+		value = 0
+		i = 0
+		for perm in freqPerms:
+			value+= y[i] * (sin(perm[0]*x)) * (sin(perm[1]*y)) * (sin(perm[2]*rvx)) * (sin(perm[3]*rvy)) * (sin(perm[4]*yvx)) * (sin(perm[5]*yvy))
+			i+=1
+			value+= y[i] * (cos(perm[0]*x)) * (cos(perm[1]*y)) * (cos(perm[2]*rvx)) * (cos(perm[3]*rvy)) * (cos(perm[4]*yvx)) * (cos(perm[5]*yvy))
+			i+=1
+			
+		rFx = Frmax*cos(value) -vr[0]*c
+		rFy = Frmax*sin(value) -vr[1]*c
+		
+		return [rFx,rFy]
+		
+	def preyTestForce(y,t,Fymax,pr,vr,py,vy):
 		yDx = math.tan(t/15.0)
 		yDy = math.cos(t/15.0)
 		
@@ -67,7 +117,7 @@ def testrun(r,y):
 		
 		return [yFx,yFy]
 
-	def predForce(r,t,Frmax,pr,vr,py,vy):
+	def predTestForce(r,t,Frmax,pr,vr,py,vy):
 		k = 10.0
 		
 		weightedMag = math.sqrt(((py[0]-pr[0])+k*(vy[0]-vr[0]))**2.0+((py[1]-pr[1])+k*(vy[1]-vr[1]))**2.0)
@@ -172,4 +222,5 @@ def getRotVec(theta, v):
 	return numpy.matrix([n[0][0],n[1][0]])
 '''
 if __name__ == "__main__":
-	testrun('silly','hello')
+	from initialPop import initialPop
+	testrun(initialPop(50,-5,5,8192),initialPop(50,-5,5,8192))
