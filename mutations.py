@@ -6,7 +6,7 @@ def mutate(genome, mutRate, rangeMin=0, rangeMax=1000):
 	mutations = 0
 	for it in range(listSize):
 		if FlipCoin(mutRate):
-			genome[it] = random.randint(rangeMin,rangeMax)
+			genome[it] = random.uniform(rangeMin,rangeMax)
 			mutations += 1
 	return genome
 			
