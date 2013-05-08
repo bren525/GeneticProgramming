@@ -6,6 +6,7 @@ import math
 from math import sin, cos
 import itertools
 from predPreyForces import preyFourierForce, predFourierForce
+from visualization import plotting
 
 
 
@@ -72,10 +73,7 @@ def testrun(r,y,animate = False):
 			closestPoint = (dist-caught)
 	
 	if animate:	
-		plot(theChase[:,0], theChase[:,1],'r-')
-		plot(theChase[:,2], theChase[:,3],'b-')
-		axis('equal')
-		show()
+		plotting(theChase)
 		
 	return elapsedTime,closestPoint
 
