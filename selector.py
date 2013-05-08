@@ -9,14 +9,19 @@ from genome import Gen
 
 def nextpop(pop,mutRate,lower,upper,maxmin = 'max'):
 	size = len(pop)
-	total = sum(pop)
+	total = 0
+	for gen in pop:
+		if maxmin == 'max':
+			total += gen.rawScore
+		else:
+			total += (1.0/gen.rawScore)
 	for gen in pop:
 		if total == 0:
 			gen.normScore = 1
 		elif maxmin == 'max':
-			gen.normScore = (float(gen.rawScore)/float(total)) #set normalized scores (inverted for predator)
+			gen.normScore = (float(gen.rawScore)/float(total)) #set normalized scores
 		else:
-			gen.normScore = 1 - (float(gen.rawScore)/float(total)) #set normalized scores (inverted for predator)
+			gen.normScore = ((1.0/float(gen.rawScore))/float(total)) #set normalized scores (inverted for predator)
 		
 	pop.sort(key = attrgetter('normScore')) #sort based on score
 	accumulator = 0

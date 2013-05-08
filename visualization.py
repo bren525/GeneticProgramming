@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+import time
+
+
+def plotting(results):
+    fig = plt.figure(figsize=(8,6))
+    plt.ylim((-1000,1000))
+    plt.xlim((-1000,1000))
+    plt.ion()
+    for i in range(0, len(results)):   
+        plt.plot(results[i][0],results[i][1],'ro',markersize=2)
+        plt.plot(results[i][2],results[i][3],'bo',markersize=2)
+        print ('plot work!')
+        plt.draw()
+        time.sleep(0.1)
+
+if __name__ == '__main__':
+
+    print('BRENDAN is a poopyhead')

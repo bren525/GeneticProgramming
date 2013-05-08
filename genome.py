@@ -16,26 +16,6 @@ class Gen():
 		""" Compares one chromosome with another """
 		return self.genomeList == other.genomeList
 
-	def __mul__(self, other):
-		""" Multiply every element of G1DList by "other" """
-		newObj = self.clone()
-		for i in xrange(len(newObj)):
-			newObj[i] *= other
-		return newObj
-
-	def __add__(self, other):
-		""" Plus every element of G1DList by "other" """
-		newObj = self.clone()
-		for i in xrange(len(newObj)):
-			newObj[i] += other
-		return newObj
-
-	def __sub__(self, other):
-		""" Plus every element of G1DList by "other" """
-		newObj = self.clone()
-		for i in xrange(len(newObj)):
-			newObj[i] -= other
-		return newObj
 
 	def __getslice__(self, a, b):
 		""" Return the sliced part of chromosome """
