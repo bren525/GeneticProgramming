@@ -14,16 +14,16 @@ def bestScore(pop,minmax='max'):
 	else:
 		return sorted(pop,key=attrgetter('rawScore'))[0]
 
-lower = 0
-upper = 100
-rpop = initialPop(50,lower,upper,5)
-ypop = initialPop(50,lower,upper,5)
+lower = -5
+upper = 5
+rpop = initialPop(50,lower,upper,8192)
+ypop = initialPop(50,lower,upper,8192)
 print('r',averageScore(rpop),bestScore(rpop))
 print('y',averageScore(ypop),bestScore(ypop))
 
-for i in range(500):
+for i in range(2):
 	
-	testFitFunc2(rpop,ypop)
+	fitFunc(rpop,ypop)
 	if i % 100 == 0:
 		print(str(i),'r',averageScore(rpop),bestScore(rpop))
 		print(str(i),'y',averageScore(ypop),bestScore(ypop))
