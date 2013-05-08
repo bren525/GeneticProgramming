@@ -4,8 +4,8 @@ import time
 
 def plotting(results):
 	fig = plt.figure(figsize=(8,6))
-	plt.ylim((-500,500))
-	plt.xlim((-500,500))
+	plt.ylim((-1000,1000))
+	plt.xlim((-1000,1000))
 	plt.ion()
 	for i in range(0, len(results)):   
 		plt.plot(results[i][0],results[i][1],'ro',markersize=4)
