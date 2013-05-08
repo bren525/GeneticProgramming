@@ -90,7 +90,7 @@ def predTaylorForce(r,t,Frmax,pr,vr,py,vy,c):
 	rFy = Frmax*sin(value) -vr[1]*c
 	
 	return [rFx,rFy]
-	
+
 def preyTestForce(y,t,Fymax,pr,vr,py,vy,c):
 	yDx = math.tan(t/15.0)
 	yDy = math.cos(t/15.0)
@@ -110,10 +110,45 @@ def preyTestForce(y,t,Fymax,pr,vr,py,vy,c):
 
 def predTestForce(r,t,Frmax,pr,vr,py,vy,c):
 	k = 10.0
-	
 	weightedMag = math.sqrt(((py[0]-pr[0])+k*(vy[0]-vr[0]))**2.0+((py[1]-pr[1])+k*(vy[1]-vr[1]))**2.0)
 	rDx = ((py[0]-pr[0])+k*(vy[0]-vr[0]))/weightedMag
 	rDy = ((py[1]-pr[1])+k*(vy[1]-vr[1]))/weightedMag
+	
+	mag = math.sqrt(rDx**2.0+rDy**2.0)
+	rFx = rDx*(Frmax/mag**2)
+	rFy = rDy*(Frmax/mag**2)
+	
+	#FrRand = [(random.random()-.5)*(Frmax/3),(random.random()-.5)*(Frmax/3)]
+	#rFx += (FrRand[0] - vr[0]*c) 
+	#rFy += (FrRand[1] - vr[1]*c)
+	
+	rFx += -vr[0]*c
+	rFy += -vr[1]*c
+	
+	return [rFx,rFy]
+	
+def preyBestForce(y,t,Fymax,pr,vr,py,vy,c):
+	weightedMag = math.sqrt((y[0]*(py[0]-pr[0])+y[1]*(vy[0]-vr[0]))**2.0+(y[2]*(py[1]-pr[1])+y[3]*(vy[1]-vr[1]))**2.0)
+	rDx = (y[4]*(py[0]-pr[0])+y[5]*(vy[0]-vr[0]))/weightedMag
+	rDy = (y[6]*(py[1]-pr[1])+y[7]*(vy[1]-vr[1]))/weightedMag
+	
+	mag = math.sqrt(rDx**2.0+rDy**2.0)
+	rFx = -rDx*(Frmax/mag**2)
+	rFy = -rDy*(Frmax/mag**2)
+	
+	#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
+	#yFx += (FyRand[0] - vy[0]*c) 
+	#yFy += (FyRand[1] - vy[1]*c)
+	
+	yFx += -vy[0]*c
+	yFy += -vy[1]*c
+	
+	return [yFx,yFy]
+
+def predBestForce(r,t,Frmax,pr,vr,py,vy,c):
+	weightedMag = math.sqrt((r[0]*(py[0]-pr[0])+r[1]*(vy[0]-vr[0]))**2.0+(r[2]*(py[1]-pr[1])+r[3]*(vy[1]-vr[1]))**2.0)
+	rDx = (r[4]*(py[0]-pr[0])+r[5]*(vy[0]-vr[0]))/weightedMag
+	rDy = (r[6]*(py[1]-pr[1])+r[7]*(vy[1]-vr[1]))/weightedMag
 	
 	mag = math.sqrt(rDx**2.0+rDy**2.0)
 	rFx = rDx*(Frmax/mag**2)
