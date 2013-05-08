@@ -1,4 +1,5 @@
 from math import sin, cos, pi
+import math
 import itertools
 
 def preyFourierForce(y,t,Fymax,pr,vr,py,vy,c):
@@ -18,13 +19,11 @@ def preyFourierForce(y,t,Fymax,pr,vr,py,vy,c):
 		value+= y[i] * (cos((2*pi/1000)*perm[0]*posx)) * (cos((2*pi/1000)*perm[1]*posy)) * (cos((2*pi/30)*perm[2]*rvx)) * (cos((2*pi/30)*perm[3]*rvy)) * (cos((2*pi/20)*perm[4]*yvx)) * (cos((2*pi/20)*perm[5]*yvy))
 		i+=1
 	
-	yFx = Fymax*cos(value) - vy[0]*c
-	yFy = Fymax*sin(value) - vy[1]*c
+	yFx = (Fymax)*cos(value) - vy[0]*c
+	yFy = (Fymax)*sin(value) - vy[1]*c
 	
 	return [yFx,yFy]
-	
-	
-	
+
 def predFourierForce(r,t,Frmax,pr,vr,py,vy,c):
 	posx = (pr[0]-py[0])
 	posy = (pr[1]-py[1])
@@ -42,8 +41,8 @@ def predFourierForce(r,t,Frmax,pr,vr,py,vy,c):
 		value+= r[i] * (cos((2*pi/1000)*perm[0]*posx)) * (cos((2*pi/1000)*perm[1]*posy)) * (cos((2*pi/30)*perm[2]*rvx)) * (cos((2*pi/30)*perm[3]*rvy)) * (cos((2*pi/20)*perm[4]*yvx)) * (cos((2*pi/20)*perm[5]*yvy))
 		i+=1
 		
-	rFx = Frmax*cos(value) -vr[0]*c
-	rFy = Frmax*sin(value) -vr[1]*c
+	rFx = (Frmax)*cos(value) -vr[0]*c
+	rFy = (Frmax)*sin(value) -vr[1]*c
 	
 	return [rFx,rFy]
 	
@@ -97,8 +96,8 @@ def preyTestForce(y,t,Fymax,pr,vr,py,vy,c):
 	yDy = math.cos(t/15.0)
 	
 	mag = math.sqrt(yDx**2.0+yDy**2.0)
-	yFx = yDx*(Frmax**2/mag**2)
-	yFy = yDy*(Frmax**2/mag**2)
+	yFx = yDx*(Frmax/mag**2)
+	yFy = yDy*(Frmax/mag**2)
 	
 	#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
 	#yFx += (FyRand[0] - vy[0]*c) 
@@ -117,8 +116,8 @@ def predTestForce(r,t,Frmax,pr,vr,py,vy,c):
 	rDy = ((py[1]-pr[1])+k*(vy[1]-vr[1]))/weightedMag
 	
 	mag = math.sqrt(rDx**2.0+rDy**2.0)
-	rFx = rDx*(Frmax**2/mag**2)
-	rFy = rDy*(Frmax**2/mag**2)
+	rFx = rDx*(Frmax/mag**2)
+	rFy = rDy*(Frmax/mag**2)
 	
 	#FrRand = [(random.random()-.5)*(Frmax/3),(random.random()-.5)*(Frmax/3)]
 	#rFx += (FrRand[0] - vr[0]*c) 

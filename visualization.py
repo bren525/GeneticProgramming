@@ -24,8 +24,10 @@ def plotting(results):
 	else:
 		xmax=xchecker[len(xchecker)-1][2]+50
 	fig = plt.figure(figsize=(8,6))
+
 	plt.ylim((ymin,ymax))
 	plt.xlim((xmin,xmax))
+
 	plt.ion()
 	for i in range(0, len(results)):   
 		plt.plot(results[i][0],results[i][1],'ro',markersize=7)
