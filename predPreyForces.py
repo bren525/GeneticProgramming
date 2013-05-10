@@ -32,7 +32,7 @@ def predFourierForce(r,t,Frmax,pr,vr,py,vy,c):
 	rvx = vr[0]
 	rvy = vr[1]
 	
-	value = 0
+	value = 0.0
 	i = 0
 	freqPerms = itertools.product([1,2],repeat = 6)
 	for perm in freqPerms:
@@ -56,7 +56,7 @@ def preyTaylorForce(y,t,Fymax,pr,vr,py,vy,c):
 	
 	value = 0.0
 	i = 0
-	freqPerms = itertools.product([1,2],repeat = 6)
+	freqPerms = itertools.product([0,1,2],repeat = 6)
 	for perm in freqPerms:
 		value+= y[i] * (posx**perm[0]) * (posy**perm[1]) * (rvx**perm[2]) * (rvy**perm[3]) * (yvx**perm[4]) * (yvy**perm[5])
 		i+=1
@@ -76,14 +76,13 @@ def predTaylorForce(r,t,Frmax,pr,vr,py,vy,c):
 	rvx = vr[0]
 	rvy = vr[1]
 	
-	value = 0
+	value = 0.0
 	i = 0
-	freqPerms = itertools.product([1,2,3,4],repeat = 6)
+	freqPerms = itertools.product([0,1,2],repeat = 6)
 	for perm in freqPerms:
-		value+= r[i] * (sin(perm[0]*posx)) * (sin(perm[1]*posy)) * (sin(perm[2]*rvx)) * (sin(perm[3]*rvy)) * (sin(perm[4]*yvx)) * (sin(perm[5]*yvy))
+		value+= y[i] * (posx**perm[0]) * (posy**perm[1]) * (rvx**perm[2]) * (rvy**perm[3]) * (yvx**perm[4]) * (yvy**perm[5])
 		i+=1
-		value+= r[i] * (cos(perm[0]*posx)) * (cos(perm[1]*posy)) * (cos(perm[2]*rvx)) * (cos(perm[3]*rvy)) * (cos(perm[4]*yvx)) * (cos(perm[5]*yvy))
-		i+=1
+		
 		
 	print('PredVal',value)
 	rFx = Frmax*cos(value) -vr[0]*c
@@ -96,8 +95,8 @@ def preyTestForce(y,t,Fymax,pr,vr,py,vy,c):
 	yDy = math.cos(t/15.0)
 	
 	mag = math.sqrt(yDx**2.0+yDy**2.0)
-	yFx = yDx*(Frmax/mag**2)
-	yFy = yDy*(Frmax/mag**2)
+	yFx = yDx*(Fymax/mag**2)
+	yFy = yDy*(Fymax/mag**2)
 	
 	#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
 	#yFx += (FyRand[0] - vy[0]*c) 
@@ -129,12 +128,12 @@ def predTestForce(r,t,Frmax,pr,vr,py,vy,c):
 	
 def preyBestForce(y,t,Fymax,pr,vr,py,vy,c):
 	weightedMag = math.sqrt((y[0]*(py[0]-pr[0])+y[1]*(vy[0]-vr[0]))**2.0+(y[2]*(py[1]-pr[1])+y[3]*(vy[1]-vr[1]))**2.0)
-	rDx = (y[4]*(py[0]-pr[0])+y[5]*(vy[0]-vr[0]))/weightedMag
-	rDy = (y[6]*(py[1]-pr[1])+y[7]*(vy[1]-vr[1]))/weightedMag
+	yDx = (y[4]*(py[0]-pr[0])+y[5]*(vy[0]-vr[0]))/weightedMag
+	yDy = (y[6]*(py[1]-pr[1])+y[7]*(vy[1]-vr[1]))/weightedMag
 	
-	mag = math.sqrt(rDx**2.0+rDy**2.0)
-	rFx = -rDx*(Frmax/mag**2)
-	rFy = -rDy*(Frmax/mag**2)
+	mag = math.sqrt(yDx**2.0+yDy**2.0)
+	yFx = -yDx*(Fymax**2/mag**2)
+	yFy = -yDy*(Fymax**2/mag**2)
 	
 	#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
 	#yFx += (FyRand[0] - vy[0]*c) 
@@ -151,8 +150,8 @@ def predBestForce(r,t,Frmax,pr,vr,py,vy,c):
 	rDy = (r[6]*(py[1]-pr[1])+r[7]*(vy[1]-vr[1]))/weightedMag
 	
 	mag = math.sqrt(rDx**2.0+rDy**2.0)
-	rFx = rDx*(Frmax/mag**2)
-	rFy = rDy*(Frmax/mag**2)
+	rFx = rDx*(Frmax**2/mag**2)
+	rFy = rDy*(Frmax**2/mag**2)
 	
 	#FrRand = [(random.random()-.5)*(Frmax/3),(random.random()-.5)*(Frmax/3)]
 	#rFx += (FrRand[0] - vr[0]*c) 
