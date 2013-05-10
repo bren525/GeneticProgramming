@@ -1,14 +1,12 @@
 from numpy import linspace
-from scipy.integrate import odeint
-from pylab import plot, axis, show
 import random
 import math
 from math import sin, cos
 import itertools
 from predPreyForces import preyFourierForce, predFourierForce, predTestForce, preyTestForce, predBestForce, preyBestForce
-from visualization import plotting
 from predPreySim import forwardEuler
-
+from visualization import plotting
+# from scipy.integrate import odeint
 
 
 def fitFunc(rpop,ypop):
