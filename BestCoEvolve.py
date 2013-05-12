@@ -27,9 +27,9 @@ upper = 10
 rpop = initialPop(20,lower,upper,8)
 ypop = initialPop(20,lower,upper,8)
 
-log = open("4BestCoEvolveLog.txt",'a')
+log = open("5BestCoEvolveLog.txt",'a')
 log.write('NewTest\n')
-scoreLog = open("4ScoreLog.txt",'a')
+scoreLog = open("5ScoreLog.txt",'a')
 
 for i in range(10000):
 	fitFunc(rpop,ypop)

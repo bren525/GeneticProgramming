@@ -2,6 +2,44 @@ from math import sin, cos, pi
 import math
 import itertools
 
+def preyBestForce(y,t,Fymax,pr,vr,py,vy,c):
+	weightedMag = math.sqrt((y[0]*(py[0]-pr[0])+y[1]*(vy[0]-vr[0]))**2.0+(y[2]*(py[1]-pr[1])+y[3]*(vy[1]-vr[1]))**2.0)
+	yDx = (y[4]*(py[0]-pr[0])+y[5]*(vy[0]-vr[0]))/weightedMag
+	yDy = (y[6]*(py[1]-pr[1])+y[7]*(vy[1]-vr[1]))/weightedMag
+	
+	mag = math.sqrt(yDx**2.0+yDy**2.0)
+	yFx = -yDx*(Fymax/mag)
+	yFy = -yDy*(Fymax/mag)
+	
+	
+	#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
+	#yFx += (FyRand[0] - vy[0]*c) 
+	#yFy += (FyRand[1] - vy[1]*c)
+	
+	yFx += -vy[0]*c
+	yFy += -vy[1]*c
+	
+	return [yFx,yFy]
+
+def predBestForce(r,t,Frmax,pr,vr,py,vy,c):
+	weightedMag = math.sqrt((r[0]*(py[0]-pr[0])+r[1]*(vy[0]-vr[0]))**2.0+(r[2]*(py[1]-pr[1])+r[3]*(vy[1]-vr[1]))**2.0)
+	rDx = (r[4]*(py[0]-pr[0])+r[5]*(vy[0]-vr[0]))/weightedMag
+	rDy = (r[6]*(py[1]-pr[1])+r[7]*(vy[1]-vr[1]))/weightedMag
+	
+	mag = math.sqrt(rDx**2.0+rDy**2.0)
+	rFx = rDx*(Frmax/mag)
+	rFy = rDy*(Frmax/mag)
+	
+	
+	#FrRand = [(random.random()-.5)*(Frmax/3),(random.random()-.5)*(Frmax/3)]
+	#rFx += (FrRand[0] - vr[0]*c) 
+	#rFy += (FrRand[1] - vr[1]*c)
+	
+	rFx += -vr[0]*c
+	rFy += -vr[1]*c
+	
+	return [rFx,rFy]
+
 def preyFourierForce(y,t,Fymax,pr,vr,py,vy,c):
 	posx = (pr[0]-py[0])
 	posy = (pr[1]-py[1])
@@ -126,41 +164,7 @@ def predTestForce(r,t,Frmax,pr,vr,py,vy,c):
 	
 	return [rFx,rFy]
 	
-def preyBestForce(y,t,Fymax,pr,vr,py,vy,c):
-	weightedMag = math.sqrt((y[0]*(py[0]-pr[0])+y[1]*(vy[0]-vr[0]))**2.0+(y[2]*(py[1]-pr[1])+y[3]*(vy[1]-vr[1]))**2.0)
-	yDx = (y[4]*(py[0]-pr[0])+y[5]*(vy[0]-vr[0]))/weightedMag
-	yDy = (y[6]*(py[1]-pr[1])+y[7]*(vy[1]-vr[1]))/weightedMag
-	
-	mag = math.sqrt(yDx**2.0+yDy**2.0)
-	yFx = -yDx*(Fymax**2/mag**2)
-	yFy = -yDy*(Fymax**2/mag**2)
-	
-	#FyRand = [(random.random()-.5)*(Fymax/3),(random.random()-.5)*(Fymax/3)]
-	#yFx += (FyRand[0] - vy[0]*c) 
-	#yFy += (FyRand[1] - vy[1]*c)
-	
-	yFx += -vy[0]*c
-	yFy += -vy[1]*c
-	
-	return [yFx,yFy]
 
-def predBestForce(r,t,Frmax,pr,vr,py,vy,c):
-	weightedMag = math.sqrt((r[0]*(py[0]-pr[0])+r[1]*(vy[0]-vr[0]))**2.0+(r[2]*(py[1]-pr[1])+r[3]*(vy[1]-vr[1]))**2.0)
-	rDx = (r[4]*(py[0]-pr[0])+r[5]*(vy[0]-vr[0]))/weightedMag
-	rDy = (r[6]*(py[1]-pr[1])+r[7]*(vy[1]-vr[1]))/weightedMag
-	
-	mag = math.sqrt(rDx**2.0+rDy**2.0)
-	rFx = rDx*(Frmax**2/mag**2)
-	rFy = rDy*(Frmax**2/mag**2)
-	
-	#FrRand = [(random.random()-.5)*(Frmax/3),(random.random()-.5)*(Frmax/3)]
-	#rFx += (FrRand[0] - vr[0]*c) 
-	#rFy += (FrRand[1] - vr[1]*c)
-	
-	rFx += -vr[0]*c
-	rFy += -vr[1]*c
-	
-	return [rFx,rFy]
 
 '''
 def preyForce(y,t,FMax,pr,vr,py,vy):
