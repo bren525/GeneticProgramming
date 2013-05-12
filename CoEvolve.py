@@ -26,7 +26,7 @@ log.write('NewTest\n')
 for i in range(5000):
 	fitFunc(rpop,ypop)
 	
-	if i%10 = 0:
+	if i%10 == 0:
 		log.write(str('Generation ')+str(i)+'\n')
 		print('Generation',i)
 		log.write(str('r ')+str(averageScore(rpop))+' '+str(bestScore(rpop))+'\n')
