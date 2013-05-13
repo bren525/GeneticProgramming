@@ -1,0 +1,67 @@
+Design Guide for GeneticProgramming
+Spring 2013
+
+The main python script is BestCoEvolve. Here the population are initialized and
+a set number of generations are ran. Each generation begins by setting the 
+scores in the previous generation. This is done by passing the predator and
+prey populations into fitFunc() from the fitSim module. fitFunc() runs a 
+testrun() for every possible predator prey combination. In our case we have
+20 predators and 20 preys so there are 400 testrun()s per generation.
+
+Each simulation is simple. It starts with 8 parameters, predator position 
+(x and y), prey position (x and y), predator velocity (x and y), prey velocity
+(x and y). Each time step we use the predator and prey force equations to 
+calculate their acceleration. A simple forward Euler method it used to iterate
+through the time steps tracing the path of the Chase. 
+
+The predator and prey force functions are what determine the predator and prey
+behaviors. We spent a large portion of our project time learning and deciding
+the best way to parameterize and evolve these functions. We eventually decided 
+on taking an existing strategy and adding parameters that would change how it 
+weighs different information. This research does not relate as well to how the 
+code works, if you want more information on the math behind our function and our
+various trials, feel free to contact one of us.
+
+At the end of each testrun() two things are returned. The elapsed time is the 
+time when the prey is caught, if the prey is not caught elapsed time equals the
+max time, in our case 250. the other parameter returned is the minimum distance,
+if the prey is caught this distance is 0 otherwise this distance is the minimum 
+distance between the predator and prey minus the caught radius which is 2, in 
+our case.
+
+These two returned values are used to calculate a score. The formula is elapsed 
+time plus 1000 times the minimum distance. This score is added to the rawScore 
+or both the predator and prey involved in this testrun(). The predator will end
+up trying to minimize its total score while the prey tries to maximize it. We 
+decided on this score system for a few reasons. Firstly, because the same score
+is added to the predators and preys it is easy to tell which population is 
+performing better with a single value (the average score of either population).
+The score system also weights our parameters effectively. There is an order of 
+magnitude difference between scores for a predator that catches the prey and 
+one that is just one unit away. The same is true for preys, they are severely 
+punished if caught and rewarded for maximizing distance from the predator.
+
+After each predator and prey is scored and the best are logged, we can generate
+the next population using nextpop(). Nextpop() uses three logical functions. 
+First the selector normalizes the predator/prey scores in each population. For
+the predator their scores are inverted so that smaller scores are favored. Once
+they are normalized a ‘roulette wheel’ is spun that has a chance to land on each
+pred/prey proportional to its score. Each time two parents are selected they use
+the crossOver() function to create children.
+
+CrossOver() takes two parents, generates a cut point and then cuts each parent 
+at this cut point. One child takes the first half of mom and the second half of
+dad, while the second child take first half of dad and the second half of mom. 
+Before the children are added to the next population they have to be mutated. 
+The mutate() function is applied to each child, it flips a coin for each 
+parameter with True having a chance equal to mutRate (mutation rate), in our 
+case .05. If a parameter gets a True flip a new random parameter replaces the
+old parameter.
+
+Once a full population is created and mutated we repeat the process of finding
+their scores and generating a new population.
+
+Some extra functions are the visualizer, which plots a simulation in pylab. 
+LogReader which goes through the log and plots a graph of predator/prey scores 
+over many generations. VideoCreator which goes through the log and pulls out 
+specific predator/prey combinations to plot and then save to .mp4 video.

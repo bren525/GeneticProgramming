@@ -1,0 +1,11 @@
+User Guide for GeneticProgramming
+Spring 2013
+
+This project incorporates genetic algorithms to simultaneously evolve two species. 
+This idea of genetic programming can be used to solve light problems that require 
+many test iterations. In order to see the results of our program, the user runs the 
+BestCoEvolve.py script. This will generate thousands of generations of evolution 
+data. In order to visualize the logged data, the user can run the testrun function 
+within the fitSim.py script with the arguments as follows: predator, prey, True 
+(signifying the desire for animation), True (signifying you want the animation 
+to be saved as an mp4). 

@@ -24,7 +24,7 @@ def distance(pr,py):
 	'''takes two x,y coordinates and returns the distance between them'''
 	return(math.sqrt((pr[0]-py[0])**2+(pr[1]-py[1])**2))
 
-def testrun(r,y,animate = False, saveVid = False):
+def testrun(r,y,animate = False, saveVid = False, gen = 0):
 	'''take a predator and a prey 
 	returns elapsedTime and closestPoint for scoring purposes'''
 	# initial simulation parameters (masses, max forces, drag coefficients)
@@ -43,7 +43,7 @@ def testrun(r,y,animate = False, saveVid = False):
 	elapsedTime = runtime
 	
 	def predPreyDE(params,t):
-	'''returns the change in sim paramaters for next timestep'''
+		'''returns the change in sim paramaters for next timestep'''
 		pr = [params[0],params[1]]
 		py = [params[2],params[3]]
 		vr = [params[4],params[5]]
@@ -76,7 +76,7 @@ def testrun(r,y,animate = False, saveVid = False):
 		elif (dist-caught) < closestPoint:
 			closestPoint = (dist-caught)
 	
-	if animate:	#animates if called for
-		plotting(theChase[:elapsedTime],saveVid)
+	if animate:	#animates, if called for
+		plotting(theChase[:elapsedTime],saveVid, gen, closestPoint)
 		
 	return elapsedTime,closestPoint

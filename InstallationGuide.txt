@@ -1,0 +1,20 @@
+Installation Guide for GeneticProgramming
+Spring 2013
+
+This project was designed to work with Python 2.7.0
+
+The following modules need to be present:
+Scipy (specifically for Numpy contained within)
+PyEvolve
+PyLab
+
+The following terminal command prompt will install PyLab Matplotlib 
+as well as scipy  and numpy. 
+
+sudo apt-get install   python-libxml2  python-matplotlib 
+python-numpy ipython python-scipy python-tk
+
+Copy and paste the command prompt into the terminal window.
+ 
+
+

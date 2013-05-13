@@ -1,15 +1,18 @@
 class Gen():
 
 	def __init__(self, initial):
+		'''initializer takes the initial genome list and sets all scores to 0'''
 		self.genomeList = initial
 		self.rawScore = 0
 		self.normScore = 0
 		self.accumulatedScore = 0
 
 	def __radd__(self, other):
+		'''allows genomes to be summed based on their scores'''
 		return other + self.rawScore
 		
 	def __repr__(self):
+		'''prints itself as its list followed by its rawScore'''
 		return str(self.genomeList) +' '+ str(self.rawScore)
 
 	def __eq__(self, other):
@@ -18,7 +21,7 @@ class Gen():
 
 
 	def __getslice__(self, a, b):
-		""" Return the sliced part of chromosome """
+		""" Return the sliced part of genome """
 		return self.genomeList[a:b]
 
 	def __getitem__(self, key):
@@ -34,5 +37,5 @@ class Gen():
 		return iter(self.genomeList)
    
 	def __len__(self):
-		""" Return the size of the List """
+		""" Returns the size of the List """
 		return len(self.genomeList)

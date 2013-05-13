@@ -34,10 +34,10 @@ rpop = initialPop(20,lower,upper,8) #Initializes predator and prey populations
 ypop = initialPop(20,lower,upper,8)
 
 #Set up log to collect data
-log = open("5BestCoEvolveLog.txt",'a')
+log = open("6BestCoEvolveLog.txt",'a')
 log.write('NewTest\n')
 
-for i in range(10000): #Runs this number of generations
+for i in range(5): #Runs this number of generations
 	#Calculates the population scores
 	fitFunc(rpop,ypop)
 	#Log relevant data

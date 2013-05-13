@@ -1,5 +1,6 @@
+'''This script reads in the logged evolution data and displays a plot of 
+average and best scores for the predator and preys across all generations'''
 import matplotlib.pyplot as plt
-from numpy import linspace
 
 log = open('5BestCoEvolveLog.txt','r')
 

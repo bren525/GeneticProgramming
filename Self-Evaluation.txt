@@ -1,0 +1,30 @@
+Self-Evaluation for Genetic Programming
+Spring 2013
+
+This project has been one of the most valuable learning experiences across all 
+of our classes this semester. It tested not only our knowledge of python, but
+our ability to implement new concepts and interpret math and the world in a
+pythonic way. What started as a project to implement an existing python module
+ in an interesting way quickly led to the creation of our own "module" for 
+CoEvolving two 1D genomes. One of the things we’re most proud of is having 
+created this CoEvolution system ourselves, as it is something not available 
+online at this point. We forged a new path by ourselves.
+
+A problem we encountered is that the Fourier series we implemented did not 
+produce intelligible results as we had hoped. When running various simulations,
+we saw that the predator did not follow the prey nor strategize to catch the 
+prey at all. It became clear that the predator’s behavior was rather random. 
+Therefore we replaced this portion of the program with a more structured 
+mathematical equation that produces the desired results. If we had more time 
+on the project, we would research more into finding a more generalized 
+solution for the prey and predator.
+
+The team was very happy when we saw that the coevolution was functioning 
+properly. We know the program is running accordingly when the prey and predator
+take turns in winning each simulation. The intent of the program had been to 
+make the prey and predator depend on each other. Therefore if the prey is 
+performing well, the predator is programmed to evolve to be better in the 
+next generation. And vice versa. 
+
+
+

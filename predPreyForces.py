@@ -3,7 +3,7 @@ import math
 import itertools
 
 def preyBestForce(y,t,Fymax,pr,vr,py,vy,c):
-	'''The prey behavior, takes and genome, y, and constructs and function with its parameters'''
+	'''The prey behavior, takes a genome, y, and constructs and function with its parameters'''
 	weightedMag = math.sqrt((y[0]*(py[0]-pr[0])+y[1]*(vy[0]-vr[0]))**2.0+(y[2]*(py[1]-pr[1])+y[3]*(vy[1]-vr[1]))**2.0)
 	yDx = (y[4]*(py[0]-pr[0])+y[5]*(vy[0]-vr[0]))/weightedMag
 	yDy = (y[6]*(py[1]-pr[1])+y[7]*(vy[1]-vr[1]))/weightedMag
@@ -19,7 +19,7 @@ def preyBestForce(y,t,Fymax,pr,vr,py,vy,c):
 	return [yFx,yFy]
 
 def predBestForce(r,t,Frmax,pr,vr,py,vy,c):
-	'''The predator behavior, takes and genome, y, and constructs and function with its parameters'''
+	'''The predator behavior, takes a genome, y, and constructs and function with its parameters'''
 	weightedMag = math.sqrt((r[0]*(py[0]-pr[0])+r[1]*(vy[0]-vr[0]))**2.0+(r[2]*(py[1]-pr[1])+r[3]*(vy[1]-vr[1]))**2.0)
 	rDx = (r[4]*(py[0]-pr[0])+r[5]*(vy[0]-vr[0]))/weightedMag
 	rDy = (r[6]*(py[1]-pr[1])+r[7]*(vy[1]-vr[1]))/weightedMag
