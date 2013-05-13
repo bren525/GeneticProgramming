@@ -4,7 +4,7 @@ from genome import Gen
 def crossOver(mom,dad,count=2):
 	"""Takes in two genomes swaps their elements and produces two babies"""
 	
-	cut = random.randint(1, len(mom)-1)
+	cut = random.randint(1, len(mom)-1) 
 	
 	if count <= 1:
 		sis=mom[:]
