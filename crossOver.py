@@ -2,17 +2,17 @@ import random
 from genome import Gen
 
 def crossOver(mom,dad,count=2):
-	"""Takes in two genomes swaps their elements and produces two babies"""
+	"""Takes in two genomes swaps their elements and produces one or two babies"""
 	
-	cut = random.randint(1, len(mom)-1) 
+	cut = random.randint(1, len(mom)-1) 	#picks random cut points
 	
-	if count <= 1:
+	if count <= 1:  	#produces one baby
 		sis=mom[:]
 		sis[cut:]=dad[cut:]
 		sis = Gen(sis)
 		return sis
 
-	if count == 2:
+	if count == 2:		#produces two babies
 		sis=mom[:]
 		sis[cut:]=dad[cut:]
 		sis = Gen(sis)
