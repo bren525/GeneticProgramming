@@ -35,7 +35,7 @@ Chelsea Bailey
 Brendan Caporaletti
 Jongchan Woo
 
-Franklin W. Olin College of Enginerring
+Franklin W. Olin College of Engineering
 
 Special thanks to:
 Jeffrey Carruthers
