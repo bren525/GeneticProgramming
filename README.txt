@@ -20,6 +20,13 @@ UserGuide.txt - outlines how to use the program
 DesignGuide.txt - summarizes function of the entire program
 InstallationGuide.txt - outlines required tools
 Self-Evaluation.txt - reflection on the project
+VideoPictureInfo.txt - explains the video and picture files
+
+Video and Picture Files:
+
+1000Gen.png
+Sample80-120.mp4
+Sampled0-330.mp4
 
 
 Genetic Programming Project

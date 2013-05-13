@@ -1,0 +1,29 @@
+Video Picture Info for GeneticProgramming
+Spring 2013
+
+1000Gen.png shows a graph of Predator best scores(red), Prey best scores
+(green), and average population scores across the first 1000 generations.
+Predators are looking for low scores while prey are looking for high scores,
+so whether the graph is close to its minimum or maximum tells you which
+population is outperforming the other at each generation. We were extremely
+happy with our results, you can see that the scores do not converge, no
+predator or prey is even unbeatable, the graph oscillates back and forth
+as they vie for dominance.
+
+The Sampled0-330.mp4 shows testruns between the best predator and
+prey from every tenth generation starting at 0 and going through 330.
+Several interesting points to not while watching this sample. We can
+see from generations 150-200 the predator dominates, this is paralled
+on our score graph (1000Gen.png) as you can see the low scores for
+these generations. This period is followed by a period of prey domination
+from generation 220-250 the prey uses a similar circular pattern to 
+constantly evade the predator who lags behind. At generation 260 you
+can see a clear shift in predator strategy as it decides to cut through
+the curve of the prey as opposed to folowing the outside of the curve.
+
+The Sample80-120.mp4 shows every generation's best pred vs prey testrun
+between generations 80 and 120. You can see more closely the changes that
+occur, again reflecting the score graph (1000Gen.png). The video seems
+repetitive, showcasing how successful strategies are passed on and better
+strategies take time to evolve.
+
