@@ -4,7 +4,7 @@ import operator
 
 margin = 10
 
-def plotting(results):
+def plotting(results,saveVid = False):
 	ycheck=sorted(results, key=operator.itemgetter(1))
 	ychecker=sorted(results, key=operator.itemgetter(3))
 	xcheck=sorted(results, key=operator.itemgetter(0))
@@ -38,6 +38,8 @@ def plotting(results):
 		plt.plot(results[i][0],results[i][1],'ro',markersize=7)
 		plt.plot(results[i][2],results[i][3],'go',markersize=7)
 		plt.draw()
+		if saveVid:
+			print('saving')
 		#time.sleep(0.001)
 	plt.show(1)
 if __name__ == '__main__':

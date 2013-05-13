@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from numpy import linspace
 
-log = open('Temp5Log.txt','r')
+log = open('5BestCoEvolveLog.txt','r')
 
 Av = []
 br = []
